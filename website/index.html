@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Ozonlaag Calculator</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+	<script src="script.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+</head>
+<body>
+
+	<div class="intro">
+		<h1>
+			Ozonlaag Calculator
+		</h1>
+		<!-- <p>
+			This is a small calculator that's supposed to calculate the amount of trees needed to get the oxygen levels of a certain planet to match those of earth. Along with other related funtions
+		</p> -->
+
+		<div class="learnmore">
+			<a href="info.html">Learn more</a>
+		</div>
+
+	</div>
+
+	<table class="answertable">
+		<tr>
+			<td id="bomenans" class="answer"></td>
+			<td class="right">- Bomen</td>
+		</tr>
+		<tr>
+			<td id="kippenans" class="answer"></td>
+			<td class="right">- Kippen</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-bottom: 1px solid blue;"></td>
+		</tr>
+		<tr>
+			<td id="jaarans" class="answer"></td>
+			<td class="right">- Jaren</td>
+		</tr>
+		<tr>
+			<td id="wisseljaarans" class="answer"></td>
+			<td class="right">- Wisseljaren</td>
+		</tr>
+	</table>
+	
+	<div class="inputform">
+		<!-- Preload Mars -->
+		<button type="submit" onclick="marspreload();">Mars</button>
+
+		<div class="planeetdata">
+			<input id="name" type="text" placeholder="Naam">
+			<input id="radius" type="number" placeholder="Radius">
+			<input id="hoogteAtmosfeer" type="number" placeholder="Hoogte Atmosfeer">
+			<input id="zuurstof" type="number" placeholder="Zuurstof">
+			<input id="koolstof" type="number" placeholder="Koolstof">
+			<input id="stikstof" type="number" placeholder="Stikstof">
+			<input id="conversiegraadO2" type="number" placeholder="Conversiegraad O2">
+			<input id="conversiegraadN2" type="number" placeholder="Conversiegraad N2">
+			<input id="groeifactorBomen" type="number" placeholder="Groeifactor Bomen">
+			<input id="groeifactorKippen" type="number" placeholder="Groeifactor Kippen">
+		</div>
+		
+		<div class="functions" style="border-top: 1px solid blue;">
+			<input id="jaren" type="number" placeholder="Jaren">
+			<button type="submit" onclick="kipjaren(document.getElementById('jaren').value);boomjaren(document.getElementById('jaren').value);">Jaar</button>
+			
+			<input id="wisseljaren" type="number" placeholder="Wisseljaren">
+			<button type="submit" onclick="wisseljaar();">Wisseljaar</button>
+
+			<input id="bomen" type="number" placeholder="bomen">
+			<input id="kippen" type="number" placeholder="kippen">
+			<button type="submit" onclick="n_bomenkippen();">Bomen</button>
+		</div>
+		<button type="button" onclick="showchart()">Show chart</button>
+	</div>
+
+	<div class="data">
+		<canvas id="myChart" width="400" height="100"></canvas>
+	</div>
+
+</body>
+</html>

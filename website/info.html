@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+
+	<!-- JS Equations with MathJax-->
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+
+<body>
+	<div class="intro">
+		<h1>A look inside </h1>
+		<a href="index.html">Go Back</a>
+	</div>
+
+	<div class="assumptions">
+		<h3>Assumptions</h3>
+		<ul>
+			<!-- <li>We have nuclear fussion and nuclear fission under control</li> -->
+			<li>Planeet heeft CO2</li>
+			<!-- <li>Er is meer CO2 op de andere planeet dan op aarde</li> -->
+			<li>Kippen maken alleen N2 van O2</li>
+			<li>Bomen en kippen kunnen op de planeet leven</li>
+			<li>De planeet is geen gasplaneet</li>
+			<li>De atmosferische druk is onder het Armstrong Limiet (&lt;625hPa)</li>
+		</ul>
+	</div>
+
+	<div class="equations">
+		<div>
+			<h3>Universal Equations</h3>
+			<div class="formula">
+				$$ inhoudplaneet = \frac{4}{3} \cdot \pi \cdot r^3 $$
+				$$ inhoudatmosfeer = \frac{4}{3} \cdot \pi \cdot (r + hoogteatmosfeer)^3 - inhoudplaneet$$
+			</div>
+		</div>
+
+		<div>
+			<h3>Boom aantal</h3>
+			<p>
+				Hoeveel bomen zijn er nodig als het in
+				x jaar rechtgetrokken wilt hebben.
+			</p>
+			<div class="formula">
+				$$ bomen = \left \lceil \frac{inhoudatmosfeer \cdot \frac{|koolstofaarde - koolstof|}{100} \cdot \rho_{koolstof}}{\displaystyle\sum_{x=0}^{jaren} G_{bomen}^x \cdot cgO} \right \rceil$$
+			</div>
+		</div>
+
+		<div>
+			<h3>Kip aantal</h3>
+			<p>
+				Hoeveel kippen zijn er nodig als het in
+				x jaar rechtgetrokken wilt hebben. <br>Basically het zelfde als boomjaren
+			</p>
+			<div class="formula">
+				$$ kippen = \left \lceil \frac{inhoudatmosfeer \cdot \frac{|koolstofaarde - koolstof - (zuurstof - zuurstofaarde)|}{100} \cdot \rho_{zuurstof}}{\displaystyle\sum_{x=0}^{jaren} G_{kippen}^x \cdot cgN} \right \rceil$$
+			</div>
+		</div>
+
+		<!-- <div>
+			<h3>Jaar bomen</h3>
+			<p>
+				Hoeveel jaar er nodig is als ik begin met zoveel bomen of kippen
+			</p>
+			<div>
+				$$ kippen = \left \lceil \frac{inhoudatmosfeer \cdot \frac{|zuurstof + koolstofaarde - koolstof|}{100} \cdot \rho_{zuurstof}}{\displaystyle\sum_{x=0}^{jaren} G_{kippen}^x \cdot cgN} \right \rceil$$
+			</div>
+		</div> -->
+
+	</div>
+
+	<!-- <div class="file">
+		<h3>The plain javascript file</h3>
+
+		<div class="code">
+			<pre>
+			<code>
+function sum(array) {
+	var total = 0;
+	for (let i = 0; i < array.length; i++) {
+		var total = total + array[i];
+	}
+	return Number(total)
+};
+function range(start, stop) {
+	var array = [];
+	for (let i = start; i < stop; i++) {
+		array.push(i);
+	}
+	return array;
+};
+
+var name, radius, hoogteAtmosfeer, zuurstof, koolstof, stikstof, conversiegraadO2, conversiegraadN2, groeifactorBomen, groeifactorKippen, dCO2;
+function planeetinfo() {
+	name = document.getElementById('name').value;
+	radius = Number(document.getElementById('radius').value);
+	hoogteAtmosfeer = Number(document.getElementById('hoogteAtmosfeer').value);
+	zuurstof = Number(document.getElementById('zuurstof').value);
+	koolstof = Number(document.getElementById('koolstof').value);
+	stikstof = Number(document.getElementById('stikstof').value);
+	conversiegraadO2 = Number(document.getElementById('conversiegraadO2').value);
+	conversiegraadN2 = Number(document.getElementById('conversiegraadN2').value);
+	groeifactorBomen = Number(document.getElementById('groeifactorBomen').value);
+	groeifactorKippen = Number(document.getElementById('groeifactorKippen').value);
+	dCO2 = Number(koolstofaarde - koolstof);
+};
+
+var dichtheidC, dichtheidO, dichtheidN, zuurstofaarde, koolstofaarde, stikstofaarde;
+dichtheidC = 1.986; 		//kg/m3
+dichtheidO = 1.43; 			//kg/m3
+dichtheidN = 1.25; 			//kg/m3
+zuurstofaarde = 20.95;		//%
+koolstofaarde = 0.038;
+stikstofaarde = 78.08;
+
+function inhouda() {
+	planeetinfo();
+
+	inhoudplaneet = 4/3 * Math.PI * (radius**3);
+	inhoudatmosfeer = (4/3 * Math.PI * (radius + hoogteAtmosfeer)**3) - inhoudplaneet;
+	console.log(`Inhoud: ${inhoudatmosfeer} m3\nInhoudplaneet: ${inhoudplaneet}`)
+};
+
+function boomjaren(jaar) {
+	planeetinfo();
+	inhouda();
+
+	var bomen = Math.ceil(((inhoudatmosfeer * (Math.abs(dCO2))/100) * dichtheidC) / sum(range(0, jaar).map(x => groeifactorBomen**x * conversiegraadO2)));
+	
+	console.log(`Bomen: ${bomen}`)
+	document.getElementById("bomenans").innerHTML = bomen;
+	return bomen
+};
+
+function kipjaren(jaar) {
+	planeetinfo();
+	inhouda();
+
+	var kippen = Math.ceil(((inhoudatmosfeer * (Math.abs(dCO2 - (zuurstof - zuurstofaarde)))/100) * dichtheidO) / sum(range(0, jaar).map(x => (groeifactorKippen**x * conversiegraadN2))));
+	
+	console.log(`Kippen: ${kippen}`);
+	document.getElementById("kippenans").innerHTML = kippen
+	return kippen
+};
+
+function wisseljaar() {
+	planeetinfo();
+	inhouda();
+	var atleastboom = 1;
+	var atleastkip = 1;
+
+	var wisseljaren = document.getElementById('wisseljaren').value;
+	var jaren = document.getElementById('jaren').value;
+
+	document.getElementById("jaarans").innerHTML = jaren;
+	document.getElementById("wisseljaarans").innerHTML = wisseljaren;
+	
+	if (jaren > wisseljaren) {
+		atleastboom = 1;
+		atleastkip = 1;
+
+		if (boomjaren(wisseljaren)[0] === 0) {
+			atleastboom = 1;
+
+		} else if (kipjaren(jaren-wisseljaren)[1] === 0) {
+			atleastkip = 1;
+
+		} else {
+			atleastboom = Math.ceil(boomjaren(wisseljaren));
+			atleastkip = Math.ceil(kipjaren(jaren-wisseljaren));
+		}
+
+		// console.log(`Bomen: ${atleastboom}`);
+		// console.log(`Kippen: ${atleastkip}`);
+		
+		document.getElementById("bomenans").innerHTML = atleastboom;
+		document.getElementById("kippenans").innerHTML = atleastkip;
+		
+	} else {
+		return 0;
+	}
+};
+
+function n_bomenkippen() {
+	planeetinfo();
+	inhouda();
+	var verschil = 0;
+	var i = 0;
+	var j = 0;
+	var bomen = document.getElementById('bomen').value;
+	var kippen = document.getElementById('kippen').value;
+
+	//  Bomen
+	while (verschil >= 0) {
+		var verschil = ((inhoudatmosfeer * Math.abs(dCO2)/100) * dichtheidC) - sum(range(0, i).map(x => bomen * (groeifactorBomen**x) * conversiegraadO2));
+		i++;
+	};
+
+	verschil = 0;
+
+	// Kippen
+	while (verschil >= 0) {
+		verschil = ((inhoudatmosfeer * Math.abs(dCO2 - (zuurstof - zuurstofaarde))/100) * dichtheidN) - sum(range(0, j).map(x => kippen * (groeifactorKippen**x) * conversiegraadN2));
+		j++;
+	};
+
+	verschil = 0;
+
+	var jaren = Number(i + j);
+	document.getElementById("jaarans").innerHTML = jaren;
+	document.getElementById("bomenans").innerHTML = bomen;
+	document.getElementById("kippenans").innerHTML = kippen;
+	console.log(`Jaren: ${jaren}`);
+};
+
+
+// marspreload();
+function marspreload() {
+	document.getElementById('name').value = 'Mars';
+	document.getElementById('radius').value = 6752000;
+	document.getElementById('hoogteAtmosfeer').value = 10000;
+	document.getElementById('zuurstof').value = 0.34;
+	document.getElementById('koolstof').value = 95;
+	document.getElementById('stikstof').value = 2.7;
+	document.getElementById('conversiegraadO2').value = 20;
+	document.getElementById('conversiegraadN2').value = 0.49275;
+	document.getElementById('groeifactorBomen').value = 1.2;
+	document.getElementById('groeifactorKippen').value = 3;
+};
+			</code>
+			</pre>
+		</div>
+	</div> -->
+</body>
+</html>
